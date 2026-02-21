@@ -1,17 +1,64 @@
-// Prueba de carga directa
-window.onload = function() {
-    console.log("Script cargado correctamente");
-    const contenedor = document.getElementById('app');
-    
-    if (contenedor) {
-        contenedor.innerHTML = `
-            <h1>¡CONEXIÓN EXITOSA!</h1>
-            <p>El sistema Biofix está listo para recibir los productos.</p>
-            <button onclick="location.reload()" style="padding:10px 20px; background:#005a8d; color:white; border:none; border-radius:5px; cursor:pointer;">
-                RECARGAR PRUEBA
-            </button>
-        `;
-    } else {
-        console.error("No se encontró el div #app");
-    }
-};
+// 1. BASE DE DATOS COMPLETA (INVENTARIO)
+const inventario = [
+    // SISTEMA MP
+    { codigo: "BFMP3.0IMP6H", nombre: "Ø3.0x6mm", sistema: "MP" },
+    { codigo: "BFMP3.0IMP8H", nombre: "Ø3.0x8mm", sistema: "MP" },
+    { codigo: "BFMP3.0IMP10H", nombre: "Ø3.0x10mm", sistema: "MP" },
+    { codigo: "BFMP3.0IMP115H", nombre: "Ø3.0x11.5mm", sistema: "MP" },
+    { codigo: "BFMP3.0IMP13H", nombre: "Ø3.0x13mm", sistema: "MP" },
+    { codigo: "BFMP3.0IMP15H", nombre: "Ø3.0x15mm", sistema: "MP" },
+    { codigo: "BFMP3.0IMP18H", nombre: "Ø3.0x18mm", sistema: "MP" },
+    { codigo: "BFMP3.0IMP20H", nombre: "Ø3.0x20mm", sistema: "MP" },
+    { codigo: "BFMP3.5IMP6H", nombre: "Ø3.5x6mm", sistema: "MP" },
+    { codigo: "BFMP3.5IMP8H", nombre: "Ø3.5x8mm", sistema: "MP" },
+    { codigo: "BFMP3.5IMP10H", nombre: "Ø3.5x10mm", sistema: "MP" },
+    { codigo: "BFMP3.5IMP11,5H", nombre: "Ø3.5x11.5mm", sistema: "MP" },
+    { codigo: "BFMP3.5IMP13H", nombre: "Ø3.5x13mm", sistema: "MP" },
+    { codigo: "BFMP3.5IMP15H", nombre: "Ø3.5x15mm", sistema: "MP" },
+    { codigo: "BFMP3.5IMP18H", nombre: "Ø3.5x18mm", sistema: "MP" },
+    { codigo: "BFMP3.5IMP20H", nombre: "Ø3.5x20mm", sistema: "MP" },
+    { codigo: "BFMP4.0IMP6H", nombre: "Ø4.0x6mm", sistema: "MP" },
+    { codigo: "BFMP4.0IMP8H", nombre: "Ø4.0x8mm", sistema: "MP" },
+    { codigo: "BFMP4.0IMP10H", nombre: "Ø4.0x10mm", sistema: "MP" },
+    { codigo: "BFMP4.0IMP11,5H", nombre: "Ø4.0x11.5mm", sistema: "MP" },
+    { codigo: "BFMP4.0IMP13H", nombre: "Ø4.0x13mm", sistema: "MP" },
+    { codigo: "BFMP4.5IMP15H", nombre: "Ø4.0x15mm", sistema: "MP" },
+    { codigo: "BFMP4.0IMP18H", nombre: "Ø4.0x18mm", sistema: "MP" },
+    { codigo: "BFMP4.0IMP20H", nombre: "Ø4.0x20mm", sistema: "MP" },
+    { codigo: "BFMP4.5IMP6H", nombre: "Ø4.5x6mm", sistema: "MP" },
+    { codigo: "BFMP4.5IMP8H", nombre: "Ø4.5x8mm", sistema: "MP" },
+    { codigo: "BFMP4.5IMP10H", nombre: "Ø4.5x10mm", sistema: "MP" },
+    { codigo: "BFMP4.5IMP11,5H", nombre: "Ø4.5x11.5mm", sistema: "MP" },
+    { codigo: "BFMP4.5IMP13H", nombre: "Ø4.5x13mm", sistema: "MP" },
+    { codigo: "BFMP4.5IMP15H", nombre: "Ø4.5x15mm", sistema: "MP" },
+    { codigo: "BFMP4.5IMP18H", nombre: "Ø4.5x18mm", sistema: "MP" },
+    { codigo: "BFMP4.5IMP20H", nombre: "Ø4.5x20mm", sistema: "MP" },
+    { codigo: "BFMP5.0IMP6H", nombre: "Ø5.0x6mm", sistema: "MP" },
+    { codigo: "BFMP5.0IMP8H", nombre: "Ø5.0x8mm", sistema: "MP" },
+    { codigo: "BFMP5.0IMP10H", nombre: "Ø5.0x10mm", sistema: "MP" },
+    { codigo: "BFMP5.0IMP11,5H", nombre: "Ø5.0x11.5mm", sistema: "MP" },
+    { codigo: "BFMP5.0IMP13H", nombre: "Ø5.0x13mm", sistema: "MP" },
+    { codigo: "BFMP5.5IMP6H", nombre: "Ø5.5x6mm", sistema: "MP" },
+    { codigo: "BFMP5.5IMP8H", nombre: "Ø5.5x8mm", sistema: "MP" },
+    { codigo: "BFMP5.5IMP10H", nombre: "Ø5.5x10mm", sistema: "MP" },
+    { codigo: "BFMP5.5IMP11,5H", nombre: "Ø5.5x11.5mm", sistema: "MP" },
+    { codigo: "BFMP5.5IMP13H", nombre: "Ø5.5x13mm", sistema: "MP" },
+
+    // SISTEMA IB
+    { codigo: "BFIB3.5 10H", nombre: "3.5x10mm", sistema: "IB" },
+    { codigo: "BFIB3.5 12H", nombre: "3.5x12mm", sistema: "IB" },
+    { codigo: "BFIB3.5 14H", nombre: "3.5x14mm", sistema: "IB" },
+    { codigo: "BFIB3.5 15H", nombre: "3.5x15mm", sistema: "IB" },
+    { codigo: "BFIB3.5 18H", nombre: "3.5x18mm", sistema: "IB" },
+    { codigo: "BFIB3.5 21H", nombre: "3.5x21mm", sistema: "IB" },
+    { codigo: "BFIB3.5 23H", nombre: "3.5x23mm", sistema: "IB" },
+    { codigo: "BFIB3.5 26H", nombre: "3.5x26mm", sistema: "IB" },
+    { codigo: "BFIB3.5 28H", nombre: "3.5x28mm", sistema: "IB" },
+    { codigo: "BFIB3.5 2414H", nombre: "3.5x24 C14", sistema: "IB" },
+    { codigo: "BFIB3.5 2616H", nombre: "3.5x26 C16", sistema: "IB" },
+    { codigo: "BFIB3.5 2818H", nombre: "3.5x28 C18", sistema: "IB" },
+    { codigo: "BFIB4.5 10H", nombre: "4.5x10mm", sistema: "IB" },
+    { codigo: "BFIB4.5 12H", nombre: "4.5x12mm", sistema: "IB" },
+    { codigo: "BFIB4.5 15H", nombre: "4.5x15mm", sistema: "IB" },
+    { codigo: "BFIB4.5 18H", nombre: "4.5x18mm", sistema: "IB" },
+    { codigo: "BFIB4.5
