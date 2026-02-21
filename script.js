@@ -299,18 +299,28 @@ window.onload = function() {
         `;
     };
 
-    window.formularioLogin = function(tipo) {
-        let camposExtra = tipo === 'nuevo' ? 
-            `<input type="text" id="matricula" placeholder="Matrícula">
-             <input type="text" id="localidad" placeholder="Localidad">` : '';
-        
+window.formularioLogin = function(tipo) {
         app.innerHTML = `
-            <h1>${tipo === 'nuevo' ? 'Registro' : 'Ingreso'}</h1>
-            <input type="text" id="nombre" placeholder="Nombre y Apellido">
-            <input type="number" id="dni" placeholder="DNI">
-            ${camposExtra}
-            <button class="btn-ingresar" onclick="ingresarAlSistema()">INGRESAR AL PORTAL</button>
-            <p onclick="mostrarInicio()" style="cursor:pointer; color:blue; margin-top:15px;">Atrás</p>
+            <div class="header-biofix">
+                <h1>BIO-FIX®</h1>
+                <p>Professional Implant Systems</p>
+            </div>
+
+            <div class="nav-container">
+                <button onclick="mostrarInicio()" style="border:none; background:#f0f0f0; border-radius:10px; padding:5px 10px;">←</button>
+                <div style="text-align:center">
+                    <small style="color:var(--azul-biofix); font-weight:bold; font-size:10px;">BIO-FIX PORTAL</small>
+                    <div style="font-weight:800; text-transform:uppercase;">Bienvenido</div>
+                </div>
+                <div class="badge-pedido">Pedido (0)</div>
+            </div>
+
+            <div class="card-login">
+                <input type="text" id="nombre" placeholder="Nombre y Apellido">
+                <input type="number" id="dni" placeholder="DNI">
+            </div>
+
+            <button class="btn-principal" onclick="ingresarAlSistema()">Ingresar</button>
         `;
     };
 
@@ -371,3 +381,4 @@ window.onload = function() {
     // Iniciar
     mostrarInicio();
 };
+
