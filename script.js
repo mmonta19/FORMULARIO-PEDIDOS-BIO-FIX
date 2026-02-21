@@ -1,7 +1,6 @@
 window.onload = function() {
-    // 1. BASE DE DATOS COMPLETA
+    // 1. BASE DE DATOS
     const inventario = [
-        // SISTEMA MP (Celeste)
         { codigo: "BFMP3.0IMP6H", nombre: "Ø3.0x6mm", sistema: "MP" },
         { codigo: "BFMP3.0IMP8H", nombre: "Ø3.0x8mm", sistema: "MP" },
         { codigo: "BFMP3.0IMP10H", nombre: "Ø3.0x10mm", sistema: "MP" },
@@ -26,127 +25,171 @@ window.onload = function() {
         { codigo: "BFMP4.0IMP15H", nombre: "Ø4.0x15mm", sistema: "MP" },
         { codigo: "BFMP4.0IMP18H", nombre: "Ø4.0x18mm", sistema: "MP" },
         { codigo: "BFMP4.0IMP20H", nombre: "Ø4.0x20mm", sistema: "MP" },
-        // SISTEMA CMU (Fucsia)
         { codigo: "BFCMU3.0 IMP 6H", nombre: "Ø3.0x6mm", sistema: "CMU" },
         { codigo: "BFCMU3.0 IMP 8H", nombre: "Ø3.0x8mm", sistema: "CMU" },
+        { codigo: "BFCMU3.0 IMP 10H", nombre: "Ø3.0x10mm", sistema: "CMU" },
         { codigo: "BFCMU3.5 IMP 10H", nombre: "Ø3.5x10mm", sistema: "CMU" },
-        // SISTEMA C3MU (Sub-opción)
         { codigo: "BFCMU3.0IMP6H C3", nombre: "Ø3.0x6mm C3", sistema: "C3MU" },
         { codigo: "BFCMU3.5IMP8H C3", nombre: "Ø3.5x8mm C3", sistema: "C3MU" },
-        // SISTEMA HE (Verde)
         { codigo: "BFHE3.4IMP85H", nombre: "Ø3.3x8.5mm", sistema: "HE" },
-        // SISTEMA HI (Rojo)
         { codigo: "BFHI3.3IMP6.5H", nombre: "Ø3.3x6.5mm", sistema: "HI" },
-        // SISTEMA CMHI (Violeta)
         { codigo: "BFCM3.3IMP8H", nombre: "Ø3.3x8mm", sistema: "CMHI" }
     ];
 
-    let datosCliente = { tipo: "", nombre: "", dni: "", matricula: "", localidad: "", provincia: "" };
+    let datosCliente = { nombre: "", dni: "" };
     let carrito = {};
     const app = document.getElementById('app');
 
     const coloresSistemas = {
         "MP": "color-mp", "CMU": "color-cmu", "C3MU": "color-cmu", 
-        "HE": "color-he", "HI": "color-hi", "BASAL": "color-basal", "CMHI": "color-cmhi"
+        "HE": "color-he", "HI": "color-hi", "CMHI": "color-cmhi"
     };
 
-    function obtenerTotalItems() {
-        return Object.values(carrito).reduce((a, b) => a + b, 0);
-    }
-
-    // --- PANTALLA INICIAL ---
+    // --- PANTALLA 1: INICIO ---
     window.mostrarInicio = function() {
         app.innerHTML = `
             <div class="header-biofix"><h1>BIO-FIX®</h1><p>Professional Implant Systems</p></div>
-            <div class="nav-container" style="justify-content: center;">
-                <div style="font-weight:800;">BIENVENIDO</div>
-            </div>
+            <div class="nav-container" style="justify-content: center;"><b>BIENVENIDO</b></div>
             <div style="padding: 20px; display: grid; gap: 15px;">
                 <button class="btn-opcion" onclick="formularioLogin('registrado')">👨‍⚕️ Cliente Registrado</button>
-                <button class="btn-opcion" onclick="formularioLogin('nuevo')">✨ Registro Nuevo</button>
-            </div>
-        `;
+                <button class="btn-opcion" onclick="formularioLogin('nuevo')">✨ Registro Nuevo Profesional</button>
+            </div>`;
     };
 
-    // --- FORMULARIO ---
-    window.formularioLogin = function(tipoElegido) {
-        datosCliente.tipo = tipoElegido;
-        let camposExtra = tipoElegido === 'nuevo' ? `
-            <input type="text" id="matricula" placeholder="Matrícula Profesional">
-            <input type="text" id="localidad" placeholder="Localidad">
-            <input type="text" id="provincia" placeholder="Provincia">
-        ` : '';
+    // --- PANTALLA 2: FORMULARIO ---
+    window.formularioLogin = function(tipo) {
+        let camposExtra = (tipo === 'nuevo') ? `
+            <input type="text" id="mat" placeholder="Matrícula Profesional">
+            <input type="text" id="loc" placeholder="Localidad">
+            <input type="text" id="pro" placeholder="Provincia">` : '';
 
         app.innerHTML = `
             <div class="header-biofix"><h1>BIO-FIX®</h1></div>
             <div class="nav-container">
-                <button onclick="mostrarInicio()" style="border:none; background:none; cursor:pointer;">←</button>
-                <div style="text-align:center">
-                    <small style="color:#007bff; font-weight:bold; font-size:10px;">BIO-FIX PORTAL</small>
-                    <div style="font-weight:800;">${tipoElegido === 'nuevo' ? 'REGISTRO' : 'INGRESO'}</div>
-                </div>
-                <div class="badge-pedido">0</div>
+                <button onclick="mostrarInicio()">←</button>
+                <div style="text-align:center"><b>DATOS DE ACCESO</b></div>
+                <div></div>
             </div>
             <div class="card-login">
-                <input type="text" id="nombre" placeholder="Nombre y Apellido">
-                <input type="number" id="dni" placeholder="DNI">
+                <input type="text" id="nom" placeholder="Nombre y Apellido">
+                <input type="number" id="dni_val" placeholder="DNI">
                 ${camposExtra}
             </div>
-            <button class="btn-principal" onclick="ingresarAlSistema()">INGRESAR</button>
-        `;
+            <button class="btn-principal" onclick="validarYEntrar()">INGRESAR</button>`;
     };
 
-    // --- LOGICA DE INGRESO ---
-    window.ingresarAlSistema = function() {
-        const n = document.getElementById('nombre').value;
-        const d = document.getElementById('dni').value;
-
+    // --- LÓGICA DE VALIDACIÓN ---
+    window.validarYEntrar = function() {
+        const n = document.getElementById('nom').value;
+        const d = document.getElementById('dni_val').value;
         if (n && d) {
             datosCliente.nombre = n;
             datosCliente.dni = d;
-            
-            if (datosCliente.tipo === 'nuevo') {
-                datosCliente.matricula = document.getElementById('matricula').value;
-                datosCliente.localidad = document.getElementById('localidad').value;
-                datosCliente.provincia = document.getElementById('provincia').value;
-            }
             mostrarCategorias();
         } else {
-            alert("Por favor, completa Nombre y DNI");
+            alert("Complete Nombre y DNI");
         }
     };
 
+    // --- PANTALLA 3: CATEGORÍAS ---
     window.mostrarCategorias = function() {
         app.innerHTML = `
             <div class="header-biofix"><h1>BIO-FIX®</h1></div>
             <div class="nav-container">
                 <div></div>
-                <div style="text-align:center">
-                    <small style="color:#007bff; font-weight:bold; font-size:10px;">HOLA DR.</small>
-                    <div style="font-weight:800; text-transform:uppercase;">${datosCliente.nombre}</div>
-                </div>
-                <button onclick="mostrarInicio()" style="border:none; background:none; font-size:20px;">×</button>
+                <div style="text-align:center"><small>DR/A.</small><br><b>${datosCliente.nombre.toUpperCase()}</b></div>
+                <button onclick="mostrarInicio()">×</button>
             </div>
-            <div style="padding: 20px; display: grid; gap: 15px;">
-                <button class="btn-opcion" onclick="mostrarSistemas()">📦 Implantes</button>
-                <button class="btn-opcion" onclick="alert('Próximamente')">🛠️ Componentes</button>
-            </div>
-        `;
+            <div style="padding: 20px;">
+                <button class="btn-opcion" style="width:100%;" onclick="mostrarSistemas()">📦 IMPLANTES</button>
+            </div>`;
     };
 
+    // --- PANTALLA 4: SISTEMAS ---
     window.mostrarSistemas = function() {
-        const sistemasDisplay = ["MP", "CMU", "HE", "HI", "BASAL", "CMHI"];
-        let htmlBotones = `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 20px;">`;
-        
-        sistemasDisplay.forEach(sis => {
-            const claseColor = coloresSistemas[sis] || "";
-            htmlBotones += `
-                <button class="btn-opcion" onclick="filtrar('${sis}')" style="height: 70px;">
-                    <span class="sistema-label ${claseColor}">SISTEMA</span><br>
-                    <span>${sis}</span>
-                </button>
-            `;
-        });
+        const sistemas = ["MP", "CMU", "HE", "HI", "CMHI"];
+        let botones = sistemas.map(s => `
+            <button class="btn-opcion" onclick="filtrarSist('${s}')" style="height:80px;">
+                <b class="${coloresSistemas[s]}">SISTEMA</b><br>${s}
+            </button>`).join('');
 
         app.innerHTML = `
-            <div class="header-biofix"><h1>BIO-
+            <div class="header-biofix"><h1>BIO-FIX®</h1></div>
+            <div class="nav-container">
+                <button onclick="mostrarCategorias()">←</button>
+                <div style="text-align:center"><b>SELECCIONE SISTEMA</b></div>
+                <div class="badge-pedido">${sumarCarrito()}</div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:20px;">${botones}</div>`;
+    };
+
+    // --- PANTALLA 5: FILTRADO (DIÁMETROS) ---
+    window.filtrarSist = function(s) {
+        if (s === 'CMU') {
+            app.innerHTML = `
+                <div class="header-biofix"><h1>BIO-FIX®</h1></div>
+                <div class="nav-container"><button onclick="mostrarSistemas()">←</button><b>OPCIONES CMU</b><div></div></div>
+                <div style="padding:20px; display:grid; gap:15px;">
+                    <button class="btn-opcion" onclick="mostrarDiametros('CMU')">Standard CMU</button>
+                    <button class="btn-opcion" onclick="mostrarDiametros('C3MU')">CMU C3</button>
+                </div>`;
+        } else {
+            mostrarDiametros(s);
+        }
+    };
+
+    window.mostrarDiametros = function(sFinal) {
+        const prods = inventario.filter(p => p.sistema === sFinal);
+        const dias = [...new Set(prods.map(p => p.nombre.split('x')[0]))];
+        const color = coloresSistemas[sFinal] || "color-mp";
+
+        app.innerHTML = `
+            <div class="header-biofix"><h1>BIO-FIX®</h1></div>
+            <div class="nav-container">
+                <button onclick="mostrarSistemas()">←</button>
+                <div style="text-align:center"><b>DIÁMETROS</b><br><small>${sFinal}</small></div>
+                <div class="badge-pedido">${sumarCarrito()}</div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:20px;">
+                ${dias.map(d => `<button class="btn-opcion" onclick="listaFinal('${sFinal}','${d}')"><b class="${color}">${d}</b></button>`).join('')}
+            </div>`;
+    };
+
+    // --- PANTALLA 6: LISTA FINAL ---
+    window.listaFinal = function(s, d) {
+        const filtrados = inventario.filter(p => p.sistema === s && p.nombre.startsWith(d));
+        const color = coloresSistemas[s];
+        app.innerHTML = `
+            <div class="header-biofix"><h1>BIO-FIX®</h1></div>
+            <div class="nav-container">
+                <button onclick="mostrarDiametros('${s}')">←</button>
+                <div style="text-align:center"><b>${d}</b></div>
+                <div class="badge-pedido">${sumarCarrito()}</div>
+            </div>
+            <div class="card-login" style="max-height:350px; overflow-y:auto; margin-top:0;">
+                ${filtrados.map(p => `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #eee;">
+                        <div><b class="${color}">${p.codigo}</b><br><small>${p.nombre}</small></div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <button class="btn-cantidad" onclick="cambiarCant('${p.codigo}',-1)">-</button>
+                            <span id="c-${p.codigo}">${carrito[p.codigo] || 0}</span>
+                            <button class="btn-cantidad" onclick="cambiarCant('${p.codigo}',1)">+</button>
+                        </div>
+                    </div>`).join('')}
+            </div>
+            <button class="btn-principal" onclick="mostrarSistemas()">CONFIRMAR</button>`;
+    };
+
+    window.cambiarCant = function(id, v) {
+        carrito[id] = (carrito[id] || 0) + v;
+        if (carrito[id] < 0) carrito[id] = 0;
+        document.getElementById(`c-${id}`).innerText = carrito[id];
+    };
+
+    function sumarCarrito() {
+        return Object.values(carrito).reduce((a, b) => a + b, 0);
+    }
+
+    // ARRANQUE
+    mostrarInicio();
+};
