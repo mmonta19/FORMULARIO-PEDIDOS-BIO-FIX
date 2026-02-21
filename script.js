@@ -1,6 +1,7 @@
 window.onload = function() {
     // 1. BASE DE DATOS
-    const inventario = [
+const inventario = [
+        // SISTEMA MP (Celeste)
         { codigo: "BFMP3.0IMP6H", nombre: "Ø3.0x6mm", sistema: "MP" },
         { codigo: "BFMP3.0IMP8H", nombre: "Ø3.0x8mm", sistema: "MP" },
         { codigo: "BFMP3.0IMP10H", nombre: "Ø3.0x10mm", sistema: "MP" },
@@ -25,15 +26,80 @@ window.onload = function() {
         { codigo: "BFMP4.0IMP15H", nombre: "Ø4.0x15mm", sistema: "MP" },
         { codigo: "BFMP4.0IMP18H", nombre: "Ø4.0x18mm", sistema: "MP" },
         { codigo: "BFMP4.0IMP20H", nombre: "Ø4.0x20mm", sistema: "MP" },
+        { codigo: "BFMP4.5IMP6H", nombre: "Ø4.5x6mm", sistema: "MP" },
+        { codigo: "BFMP4.5IMP8H", nombre: "Ø4.5x8mm", sistema: "MP" },
+        { codigo: "BFMP4.5IMP10H", nombre: "Ø4.5x10mm", sistema: "MP" },
+        { codigo: "BFMP4.5IMP11.5H", nombre: "Ø4.5x11.5mm", sistema: "MP" },
+        { codigo: "BFMP4.5IMP13H", nombre: "Ø4.5x13mm", sistema: "MP" },
+        { codigo: "BFMP4.5IMP15H", nombre: "Ø4.5x15mm", sistema: "MP" },
+        { codigo: "BFMP4.5IMP18H", nombre: "Ø4.5x18mm", sistema: "MP" },
+        { codigo: "BFMP4.5IMP20H", nombre: "Ø4.5x20mm", sistema: "MP" },
+        { codigo: "BFMP5.0IMP6H", nombre: "Ø5.0x6mm", sistema: "MP" },
+        { codigo: "BFMP5.0IMP8H", nombre: "Ø5.0x8mm", sistema: "MP" },
+        { codigo: "BFMP5.0IMP10H", nombre: "Ø5.0x10mm", sistema: "MP" },
+        { codigo: "BFMP5.0IMP11.5H", nombre: "Ø5.0x11.5mm", sistema: "MP" },
+        { codigo: "BFMP5.0IMP13H", nombre: "Ø5.0x13mm", sistema: "MP" },
+        { codigo: "BFMP5.5IMP6H", nombre: "Ø5.5x6mm", sistema: "MP" },
+        { codigo: "BFMP5.5IMP8H", nombre: "Ø5.5x8mm", sistema: "MP" },
+        { codigo: "BFMP5.5IMP10H", nombre: "Ø5.5x10mm", sistema: "MP" },
+        { codigo: "BFMP5.5IMP11.5H", nombre: "Ø5.5x11.5mm", sistema: "MP" },
+        { codigo: "BFMP5.5IMP13H", nombre: "Ø5.5x13mm", sistema: "MP" },
+
+        // SISTEMA CMU (Fucsia)
         { codigo: "BFCMU3.0 IMP 6H", nombre: "Ø3.0x6mm", sistema: "CMU" },
         { codigo: "BFCMU3.0 IMP 8H", nombre: "Ø3.0x8mm", sistema: "CMU" },
         { codigo: "BFCMU3.0 IMP 10H", nombre: "Ø3.0x10mm", sistema: "CMU" },
+        { codigo: "BFCMU3.0 IMP 11.5H", nombre: "Ø3.0x11.5mm", sistema: "CMU" },
+        { codigo: "BFCMU3.0 IMP 13H", nombre: "Ø3.0x13mm", sistema: "CMU" },
+        { codigo: "BFCMU3.0 IMP 15H", nombre: "Ø3.0x15mm", sistema: "CMU" },
+        { codigo: "BFCMU3.0 IMP 18H", nombre: "Ø3.0x18mm", sistema: "CMU" },
+        { codigo: "BFCMU3.0 IMP 20H", nombre: "Ø3.0x20mm", sistema: "CMU" },
+        { codigo: "BFCMU3.5 IMP 6H", nombre: "Ø3.5x6mm", sistema: "CMU" },
+        { codigo: "BFCMU3.5 IMP 8H", nombre: "Ø3.5x8mm", sistema: "CMU" },
         { codigo: "BFCMU3.5 IMP 10H", nombre: "Ø3.5x10mm", sistema: "CMU" },
+        { codigo: "BFCMU3.5 IMP 11.5H", nombre: "Ø3.5x11.5mm", sistema: "CMU" },
+        { codigo: "BFCMU3.5 IMP 13H", nombre: "Ø3.5x13mm", sistema: "CMU" },
+        { codigo: "BFCMU3.5 IMP 15H", nombre: "Ø3.5x15mm", sistema: "CMU" },
+        { codigo: "BFCMU4.0 IMP 6H", nombre: "Ø4.0x6mm", sistema: "CMU" },
+        { codigo: "BFCMU4.0 IMP 8H", nombre: "Ø4.0x8mm", sistema: "CMU" },
+        { codigo: "BFCMU4.0 IMP 10H", nombre: "Ø4.0x10mm", sistema: "CMU" },
+        { codigo: "BFCMU4.5 IMP 6H", nombre: "Ø4.5x6mm", sistema: "CMU" },
+        { codigo: "BFCMU5.0 IMP 6H", nombre: "Ø5.0x6mm", sistema: "CMU" },
+
+        // SISTEMA C3MU (Sub-opción de CMU)
         { codigo: "BFCMU3.0IMP6H C3", nombre: "Ø3.0x6mm C3", sistema: "C3MU" },
+        { codigo: "BFCMU3.0IMP8H C3", nombre: "Ø3.0x8mm C3", sistema: "C3MU" },
+        { codigo: "BFCMU3.0IMP10H C3", nombre: "Ø3.0x10mm C3", sistema: "C3MU" },
+        { codigo: "BFCMU3.5IMP6H C3", nombre: "Ø3.5x6mm C3", sistema: "C3MU" },
         { codigo: "BFCMU3.5IMP8H C3", nombre: "Ø3.5x8mm C3", sistema: "C3MU" },
+        { codigo: "BFCMU4.0IMP6H C3", nombre: "Ø4.0x6mm C3", sistema: "C3MU" },
+
+        // SISTEMA HE (Verde)
         { codigo: "BFHE3.4IMP85H", nombre: "Ø3.3x8.5mm", sistema: "HE" },
+        { codigo: "BFHE3.4IMP10H", nombre: "Ø3.3x10mm", sistema: "HE" },
+        { codigo: "BFHE3.4IMP11.5H", nombre: "Ø3.3x11.5mm", sistema: "HE" },
+        { codigo: "BFHE3.4IMP13H", nombre: "Ø3.3x13mm", sistema: "HE" },
+        { codigo: "BFHE3.4IMP15H", nombre: "Ø3.3x15mm", sistema: "HE" },
+        { codigo: "BFHE4.1IMP6H", nombre: "Ø4.0x6mm", sistema: "HE" },
+        { codigo: "BFHE4.1IMP8H", nombre: "Ø4.0x8.5mm", sistema: "HE" },
+        { codigo: "BFHE4.1IMP10H", nombre: "Ø4.0x10mm", sistema: "HE" },
+        { codigo: "BFHE5.0IMP6H", nombre: "Ø5.0x6mm", sistema: "HE" },
+
+        // SISTEMA HI (Rojo)
         { codigo: "BFHI3.3IMP6.5H", nombre: "Ø3.3x6.5mm", sistema: "HI" },
-        { codigo: "BFCM3.3IMP8H", nombre: "Ø3.3x8mm", sistema: "CMHI" }
+        { codigo: "BFHI3.3IMP8H", nombre: "Ø3.3x8mm", sistema: "HI" },
+        { codigo: "BFHI3.3IMP10H", nombre: "Ø3.3x10mm", sistema: "HI" },
+        { codigo: "BFHI3.8IMP8H", nombre: "Ø3.75x8mm", sistema: "HI" },
+        { codigo: "BFHI4.2IMP8H", nombre: "Ø4.2x8mm", sistema: "HI" },
+        { codigo: "BFHI5.0IMP8H", nombre: "Ø5.0x8mm", sistema: "HI" },
+
+        // SISTEMA CMHI (Violeta)
+        { codigo: "BFCM3.3IMP8H", nombre: "Ø3.3x8mm", sistema: "CMHI" },
+        { codigo: "BFCM3.3IMP10H", nombre: "Ø3.3x10mm", sistema: "CMHI" },
+        { codigo: "BFCM3.3IMP11.5H", nombre: "Ø3.3x11.5mm", sistema: "CMHI" },
+        { codigo: "BFCM3.75IMP8H", nombre: "Ø3.75x8mm", sistema: "CMHI" },
+        { codigo: "BFCM4.2IMP8H", nombre: "Ø4.2x8mm", sistema: "CMHI" },
+        { codigo: "BFCM5.0IMP8H", nombre: "Ø5.0x8mm", sistema: "CMHI" }
     ];
 
     let datosCliente = { nombre: "", dni: "" };
@@ -193,3 +259,4 @@ window.onload = function() {
     // ARRANQUE
     mostrarInicio();
 };
+
