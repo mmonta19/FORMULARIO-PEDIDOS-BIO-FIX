@@ -1,0 +1,68 @@
+:root {
+    --azul-biofix: #005a8d;
+    --gris-fondo: #f4f7f6;
+    --blanco: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--gris-fondo);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+#app {
+    width: 100%;
+    max-width: 500px;
+    background: var(--blanco);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+h1 { color: var(--azul-biofix); margin-bottom: 5px; }
+p { color: #666; margin-bottom: 30px; }
+
+.btn-opcion {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 2px solid var(--azul-biofix);
+    background: transparent;
+    color: var(--azul-biofix);
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-opcion:hover {
+    background: var(--azul-biofix);
+    color: white;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Importante para que no se salga del borde */
+}
+
+.btn-ingresar {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+}
