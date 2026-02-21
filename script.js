@@ -1,8 +1,6 @@
 window.onload = function() {
-    console.log("Sistema Biofix cargado con éxito");
-
-    // 1. INVENTARIO COMPLETO
-    const inventario = [
+    // 1. INVENTARIO (Mantenemos toda tu lista original aquí)
+const inventario = [
         // SISTEMA MP
         { codigo: "BFMP3.0IMP6H", nombre: "Ø3.0x6mm", sistema: "MP" },
         { codigo: "BFMP3.0IMP8H", nombre: "Ø3.0x8mm", sistema: "MP" },
@@ -284,101 +282,150 @@ window.onload = function() {
         { codigo: "BFCM5.0IMP16H", nombre: "Ø5.0x16mm", sistema: "CMHI" }
     ];
 
-    // 2. ESTADO DE LA APP
-    let datosCliente = { nombre: "", dni: "", matricula: "", localidad: "" };
+    let datosCliente = { tipo: "", nombre: "", dni: "", matricula: "", localidad: "", provincia: "" };
     let carrito = {};
     const app = document.getElementById('app');
 
-    // 3. FUNCIONES DE NAVEGACIÓN (Uso global para botones)
+    const coloresSistemas = {
+        "MP": "color-mp", "CMU": "color-cmu", "HE": "color-he", 
+        "HI": "color-hi", "BASAL": "color-basal", "CMHI": "color-cmhi"
+    };
+
+    // 2. FUNCIONES DE NAVEGACIÓN
     window.mostrarInicio = function() {
         app.innerHTML = `
-            <h1>BIOFIX</h1>
-            <p>Portal de Pedidos</p>
-            <button class="btn-opcion" onclick="formularioLogin('registrado')">YA SOY CLIENTE</button>
-            <button class="btn-opcion" onclick="formularioLogin('nuevo')">NUEVO REGISTRO</button>
+            <div class="header-biofix"><h1>BIO-FIX®</h1><p>Professional Implant Systems</p></div>
+            <div class="nav-container" style="justify-content: center;">
+                <div style="font-weight:800; text-transform:uppercase;">Seleccione Ingreso</div>
+            </div>
+            <div style="padding: 20px;">
+                <button class="btn-opcion" style="width:100%; margin-bottom:15px;" onclick="formularioLogin('registrado')">👨‍⚕️ Cliente Registrado</button>
+                <button class="btn-opcion" style="width:100%;" onclick="formularioLogin('nuevo')">✨ Registro Nuevo</button>
+            </div>
         `;
     };
 
-window.formularioLogin = function(tipo) {
+    window.formularioLogin = function(tipo) {
+        datosCliente.tipo = tipo;
+        let camposExtra = tipo === 'nuevo' ? `
+            <input type="text" id="matricula" placeholder="Matrícula Profesional">
+            <input type="text" id="localidad" placeholder="Localidad">
+            <input type="text" id="provincia" placeholder="Provincia">
+        ` : '';
+
         app.innerHTML = `
-            <div class="header-biofix">
-                <h1>BIO-FIX®</h1>
-                <p>Professional Implant Systems</p>
-            </div>
-
+            <div class="header-biofix"><h1>BIO-FIX®</h1></div>
             <div class="nav-container">
-                <button onclick="mostrarInicio()" style="border:none; background:#f0f0f0; border-radius:10px; padding:5px 10px;">←</button>
+                <button onclick="mostrarInicio()" style="border:none; background:none;">←</button>
                 <div style="text-align:center">
-                    <small style="color:var(--azul-biofix); font-weight:bold; font-size:10px;">BIO-FIX PORTAL</small>
-                    <div style="font-weight:800; text-transform:uppercase;">Bienvenido</div>
+                    <small style="color:var(--azul-biofix); font-weight:bold; font-size:10px;">BIENVENIDO</small>
+                    <div style="font-weight:800;">${tipo === 'nuevo' ? 'NUEVO REGISTRO' : 'INGRESO'}</div>
                 </div>
-                <div class="badge-pedido">Pedido (0)</div>
+                <div class="badge-pedido">PEDIDO (0)</div>
             </div>
-
             <div class="card-login">
                 <input type="text" id="nombre" placeholder="Nombre y Apellido">
                 <input type="number" id="dni" placeholder="DNI">
+                ${camposExtra}
             </div>
-
-            <button class="btn-principal" onclick="ingresarAlSistema()">Ingresar</button>
+            <button class="btn-principal" onclick="ingresarAlSistema()">INGRESAR</button>
         `;
     };
 
     window.ingresarAlSistema = function() {
         datosCliente.nombre = document.getElementById('nombre').value;
         datosCliente.dni = document.getElementById('dni').value;
+        if (datosCliente.tipo === 'nuevo') {
+            datosCliente.matricula = document.getElementById('matricula').value;
+            datosCliente.localidad = document.getElementById('localidad').value;
+            datosCliente.provincia = document.getElementById('provincia').value;
+        }
+
         if (datosCliente.nombre && datosCliente.dni) {
             mostrarCategorias();
-        } else { alert("Completa los datos"); }
+        } else { alert("Por favor, completa Nombre y DNI"); }
     };
 
     window.mostrarCategorias = function() {
         app.innerHTML = `
-            <div style="text-align:left; font-size:12px;">📍 Dr: ${datosCliente.nombre}</div>
-            <h1>¿Qué necesitás?</h1>
-            <button class="btn-opcion" onclick="mostrarSistemas()">🦷 IMPLANTES</button>
-            <button class="btn-opcion" onclick="alert('Próximamente')">🏗️ COMPONENTES</button>
-            <button onclick="mostrarInicio()" style="color:red; background:none; border:none; margin-top:20px;">Cerrar Sesión</button>
+            <div class="header-biofix"><h1>BIO-FIX®</h1></div>
+            <div class="nav-container">
+                <div></div>
+                <div style="text-align:center">
+                    <small style="color:var(--azul-biofix); font-weight:bold; font-size:10px;">HOLA DR.</small>
+                    <div style="font-weight:800; text-transform:uppercase;">${datosCliente.nombre}</div>
+                </div>
+                <button onclick="mostrarInicio()" style="border:none; background:none; font-size:20px;">×</button>
+            </div>
+            <div style="padding: 20px; display: grid; gap: 15px;">
+                <button class="btn-opcion" onclick="mostrarSistemas()">📦 Implantes</button>
+                <button class="btn-opcion" onclick="alert('Próximamente')">🛠️ Componentes Analógicos</button>
+                <button class="btn-opcion" style="background:#8e44ad; color:white;" onclick="alert('Próximamente')">💻 Flujo Digital</button>
+            </div>
         `;
     };
 
     window.mostrarSistemas = function() {
         const sistemas = [...new Set(inventario.map(p => p.sistema))];
+        let htmlSistemas = `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 20px;">`;
+        
+        sistemas.forEach(sis => {
+            const claseColor = coloresSistemas[sis] || "";
+            htmlSistemas += `
+                <button class="btn-opcion" onclick="filtrar('${sis}')" style="height: 80px;">
+                    <span class="sistema-label ${claseColor}">SISTEMA</span><br>
+                    <span>${sis}</span>
+                </button>
+            `;
+        });
+
         app.innerHTML = `
-            <h2>Elegí el Sistema</h2>
-            ${sistemas.map(sis => `<button class="btn-opcion" onclick="filtrar('${sis}')">${sis}</button>`).join('')}
-            <button class="btn-ingresar" style="background:#666;" onclick="mostrarCategorias()">VOLVER</button>
+            <div class="header-biofix"><h1>BIO-FIX®</h1></div>
+            <div class="nav-container">
+                <button onclick="mostrarCategorias()" style="border:none; background:none;">←</button>
+                <div style="text-align:center">
+                    <small style="color:var(--azul-biofix); font-weight:bold; font-size:10px;">CATÁLOGO</small>
+                    <div style="font-weight:800;">IMPLANTES</div>
+                </div>
+                <div class="badge-pedido">${Object.values(carrito).reduce((a,b)=>a+b,0)}</div>
+            </div>
+            ${htmlSistemas}</div>
         `;
     };
 
-    window.filtrar = function(sistemaElegido) {
-        const productos = inventario.filter(p => p.sistema === sistemaElegido);
+    window.filtrar = function(sis) {
+        const prods = inventario.filter(p => p.sistema === sis);
+        const claseColor = coloresSistemas[sis] || "";
         app.innerHTML = `
-            <h2>${sistemaElegido}</h2>
-            <div style="max-height: 400px; overflow-y: auto;">
-                ${productos.map(p => `
-                    <div class="tarjeta-producto" style="display:flex; justify-content:space-between; align-items:center; padding:10px; border-bottom:1px solid #eee;">
-                        <div style="text-align:left;"><strong>${p.codigo}</strong><br><small>${p.nombre}</small></div>
+            <div class="header-biofix"><h1>BIO-FIX®</h1></div>
+            <div class="nav-container">
+                <button onclick="mostrarSistemas()" style="border:none; background:none;">←</button>
+                <div style="text-align:center">
+                    <span class="sistema-label ${claseColor}">SISTEMA</span> <span>${sis}</span>
+                </div>
+                <div class="badge-pedido">ITEMS: ${Object.values(carrito).reduce((a,b)=>a+b,0)}</div>
+            </div>
+            <div class="card-login" style="max-height:400px; overflow-y:auto; margin-top:0;">
+                ${prods.map(p => `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #eee;">
+                        <div><strong class="${claseColor}">${p.codigo}</strong><br><small>${p.nombre}</small></div>
                         <div style="display:flex; align-items:center; gap:10px;">
-                            <button class="btn-cantidad" onclick="cambiarCantidad('${p.codigo}', -1)">-</button>
+                            <button onclick="cambiarCantidad('${p.codigo}', -1)" style="width:25px; border-radius:50%; border:1px solid #ddd;">-</button>
                             <span id="cant-${p.codigo}">${carrito[p.codigo] || 0}</span>
-                            <button class="btn-cantidad" onclick="cambiarCantidad('${p.codigo}', 1)">+</button>
+                            <button onclick="cambiarCantidad('${p.codigo}', 1)" style="width:25px; border-radius:50%; border:1px solid #ddd;">+</button>
                         </div>
                     </div>
                 `).join('')}
             </div>
-            <button class="btn-ingresar" onclick="mostrarSistemas()">GUARDAR Y VOLVER</button>
+            <button class="btn-principal" onclick="mostrarSistemas()">Confirmar</button>
         `;
     };
 
-    window.cambiarCantidad = function(codigo, cambio) {
-        if (!carrito[codigo]) carrito[codigo] = 0;
-        carrito[codigo] += cambio;
-        if (carrito[codigo] < 0) carrito[codigo] = 0;
-        document.getElementById(`cant-${codigo}`).innerText = carrito[codigo];
+    window.cambiarCantidad = function(cod, val) {
+        carrito[cod] = (carrito[cod] || 0) + val;
+        if (carrito[cod] < 0) carrito[cod] = 0;
+        document.getElementById(`cant-${cod}`).innerText = carrito[cod];
     };
 
-    // Iniciar
     mostrarInicio();
 };
-
