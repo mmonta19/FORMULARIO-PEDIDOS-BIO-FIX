@@ -1,8 +1,5 @@
-// ==========================================
-// 1. BASE DE DATOS DE PRODUCTOS (INVENTARIO)
-// ==========================================
+// 1. INVENTARIO COMPLETO
 const inventario = [
-    // SISTEMA MP (MONOPIEZA)
     { codigo: "BFMP3.0IMP6H", nombre: "Ø3.0x6mm", sistema: "MP" },
     { codigo: "BFMP3.0IMP8H", nombre: "Ø3.0x8mm", sistema: "MP" },
     { codigo: "BFMP3.0IMP10H", nombre: "Ø3.0x10mm", sistema: "MP" },
@@ -45,8 +42,6 @@ const inventario = [
     { codigo: "BFMP5.5IMP10H", nombre: "Ø5.5x10mm", sistema: "MP" },
     { codigo: "BFMP5.5IMP11,5H", nombre: "Ø5.5x11.5mm", sistema: "MP" },
     { codigo: "BFMP5.5IMP13H", nombre: "Ø5.5x13mm", sistema: "MP" },
-
-    // SISTEMA IB (BASAL PULIDO)
     { codigo: "BFIB3.5 10H", nombre: "3.5x10mm", sistema: "IB" },
     { codigo: "BFIB3.5 12H", nombre: "3.5x12mm", sistema: "IB" },
     { codigo: "BFIB3.5 14H", nombre: "3.5x14mm", sistema: "IB" },
@@ -83,8 +78,6 @@ const inventario = [
     { codigo: "BFIB8.5 10H", nombre: "8.5x10mm", sistema: "IB" },
     { codigo: "BFIB8.5 12H", nombre: "8.5x12mm", sistema: "IB" },
     { codigo: "BFIB8.5 15H", nombre: "8.5x15mm", sistema: "IB" },
-
-    // SISTEMA IBT (BASAL CON TRATAMIENTO)
     { codigo: "BFIBT3.5 10H", nombre: "3.5x10mm", sistema: "IBT" },
     { codigo: "BFIBT3.5 12H", nombre: "3.5x12mm", sistema: "IBT" },
     { codigo: "BFIBT3.5 14H", nombre: "3.5x14mm", sistema: "IBT" },
@@ -121,8 +114,6 @@ const inventario = [
     { codigo: "BFIBT8.5 10H", nombre: "8.5x10mm", sistema: "IBT" },
     { codigo: "BFIBT8.5 12H", nombre: "8.5x12mm", sistema: "IBT" },
     { codigo: "BFIBT8.5 15H", nombre: "8.5x15mm", sistema: "IBT" },
-
-    // SISTEMA CMU (COMPRESIVO MULTI UNIT)
     { codigo: "BFCMU3.0 IMP 6H", nombre: "Ø3.0x6mm", sistema: "CMU" },
     { codigo: "BFCMU3.0 IMP 8H", nombre: "Ø3.0x8mm", sistema: "CMU" },
     { codigo: "BFCMU3.0 IMP 10H", nombre: "Ø3.0x10mm", sistema: "CMU" },
@@ -165,8 +156,6 @@ const inventario = [
     { codigo: "BFCMU5.5IMP 10H", nombre: "Ø5.5x10mm", sistema: "CMU" },
     { codigo: "BFCMU5.5IMP 11,5H", nombre: "Ø5.5x11.5mm", sistema: "CMU" },
     { codigo: "BFCMU5.5IMP 13H", nombre: "Ø5.5x13mm", sistema: "CMU" },
-
-    // SISTEMA C3MU (CUELLO 3)
     { codigo: "BFCMU3.0IMP6H C3", nombre: "Ø3.0x6mm C3", sistema: "C3MU" },
     { codigo: "BFCMU3.0IMP8H C3", nombre: "Ø3.0x8mm C3", sistema: "C3MU" },
     { codigo: "BFCMU3.0IMP10H C3", nombre: "Ø3.0x10mm C3", sistema: "C3MU" },
@@ -209,8 +198,6 @@ const inventario = [
     { codigo: "BFCMU5.5IMP10H C3", nombre: "Ø5.5x10mm C3", sistema: "C3MU" },
     { codigo: "BFCMU5.5IMP11,5H C3", nombre: "Ø5.5x11.5mm C3", sistema: "C3MU" },
     { codigo: "BFCMU5.5IMP13H C3", nombre: "Ø5.5x13mm C3", sistema: "C3MU" },
-
-    // SISTEMA HE (HEXÁGONO EXTERNO)
     { codigo: "BFHE3.4IMP85H", nombre: "Ø3.3x8.5mm", sistema: "HE" },
     { codigo: "BFHE3.4IMP10H", nombre: "Ø3.3x10mm", sistema: "HE" },
     { codigo: "BFHE3.4IMP11.5H", nombre: "Ø3.3x11.5mm", sistema: "HE" },
@@ -233,8 +220,6 @@ const inventario = [
     { codigo: "BFHE5.0IMP11,5H", nombre: "Ø5.0x11.5mm", sistema: "HE" },
     { codigo: "BFHE5.0IMP13H", nombre: "Ø5.0x13mm", sistema: "HE" },
     { codigo: "BFHE5.0IMP15H", nombre: "Ø5.0x15mm", sistema: "HE" },
-
-    // SISTEMA HI (HEXÁGONO INTERNO)
     { codigo: "BFHI3.3IMP6.5H", nombre: "Ø3.3x6.5mm", sistema: "HI" },
     { codigo: "BFHI3.3IMP8H", nombre: "Ø3.3x8mm", sistema: "HI" },
     { codigo: "BFHI3.3IMP10H", nombre: "Ø3.3x10mm", sistema: "HI" },
@@ -259,8 +244,6 @@ const inventario = [
     { codigo: "BFHI5.0IMP11.5H", nombre: "Ø5.0x11.5mm", sistema: "HI" },
     { codigo: "BFHI5.0IMP13H", nombre: "Ø5.0x13mm", sistema: "HI" },
     { codigo: "BFHI5.0IMP16H", nombre: "Ø5.0x16mm", sistema: "HI" },
-
-    // SISTEMA CMHI (CONO MORSE)
     { codigo: "BFCM3.3IMP8H", nombre: "Ø3.3x8mm", sistema: "CMHI" },
     { codigo: "BFCM3.3IMP10H", nombre: "Ø3.3x10mm", sistema: "CMHI" },
     { codigo: "BFCM3.3IMP11.5H", nombre: "Ø3.3x11.5mm", sistema: "CMHI" },
@@ -283,11 +266,11 @@ const inventario = [
     { codigo: "BFCM5.0IMP16H", nombre: "Ø5.0x16mm", sistema: "CMHI" }
 ];
 
-// ==========================================
-// 2. VARIABLES DE ESTADO Y LÓGICA
-// ==========================================
+// 2. ESTADO DE LA APP
 let datosCliente = { tipo: "", nombre: "", dni: "", matricula: "", localidad: "" };
+let carrito = {};
 
+// 3. FUNCIONES DE NAVEGACIÓN
 function mostrarInicio() {
     const app = document.getElementById('app');
     app.innerHTML = `
@@ -303,79 +286,34 @@ function formularioLogin(tipo) {
     const app = document.getElementById('app');
     let camposExtra = '';
     if (tipo === 'nuevo') {
-        camposExtra = `
-            <input type="text" id="matricula" placeholder="Matrícula Profesional">
-            <select id="localidad">
-                <option value="">Seleccionar Localidad (Bs. As.)</option>
-                <option value="CABA">CABA</option>
-                <option value="La Plata">La Plata</option>
-                <option value="Mar del Plata">Mar del Plata</option>
-            </select>
-        `;
+        camposExtra = `<input type="text" id="matricula" placeholder="Matrícula Professional">
+                       <input type="text" id="localidad" placeholder="Localidad">`;
     }
     app.innerHTML = `
         <h1>${tipo === 'nuevo' ? 'Registro' : 'Ingreso'}</h1>
         <input type="text" id="nombre" placeholder="Nombre y Apellido">
-        <input type="number" id="dni" placeholder="DNI (Solo números)">
+        <input type="number" id="dni" placeholder="DNI">
         ${camposExtra}
         <button class="btn-ingresar" onclick="ingresarAlSistema()">INGRESAR AL PORTAL</button>
-        <p onclick="mostrarInicio()" style="cursor:pointer; color:blue; text-decoration:underline; font-size:14px; margin-top:15px;">Volver atrás</p>
+        <p onclick="mostrarInicio()" style="cursor:pointer; color:blue;">Atrás</p>
     `;
 }
 
 function ingresarAlSistema() {
     datosCliente.nombre = document.getElementById('nombre').value;
     datosCliente.dni = document.getElementById('dni').value;
-    
-    if (datosCliente.tipo === 'nuevo') {
-        datosCliente.matricula = document.getElementById('matricula').value;
-        datosCliente.localidad = document.getElementById('localidad').value;
-    }
-
     if (datosCliente.nombre && datosCliente.dni) {
-        // En lugar de alert, saltamos a las categorías
         mostrarCategorias();
     } else {
-        alert("Por favor, completa los campos obligatorios.");
+        alert("Completa los datos");
     }
 }
 
-// NUEVA FUNCIÓN: El menú de los 4 botones grandes
 function mostrarCategorias() {
     const app = document.getElementById('app');
     app.innerHTML = `
-        <div style="text-align:left; margin-bottom:20px; font-size:14px; color:#555;">
-            📍 Pedido para: <strong>${datosCliente.nombre}</strong>
-        </div>
-        <h1>¿Qué necesitás?</h1>
-        <p>Seleccioná una categoría para ver los productos</p>
-        
+        <div style="text-align:left; font-size:12px;">📍 Dr: ${datosCliente.nombre}</div>
+        <h1>Categorías</h1>
         <button class="btn-opcion" onclick="mostrarSistemasImplantes()">🦷 IMPLANTES</button>
-        <button class="btn-opcion" onclick="alert('Próximamente...')">🏗️ COMPONENTES ANALÓGICOS</button>
-        <button class="btn-opcion" onclick="alert('Próximamente...')">💻 COMPONENTES DIGITALES</button>
-        <button class="btn-opcion" onclick="alert('Próximamente...')">🔧 HERRAMIENTAS / CIRUGÍA</button>
-        
-        <button onclick="mostrarInicio()" style="margin-top:20px; background:none; border:none; color:red; cursor:pointer;">✖ Cerrar Sesión</button>
-    `;
-}
-
-// NUEVA FUNCIÓN: Para elegir qué sistema de implante ver
-function mostrarSistemasImplantes() {
-    const app = document.getElementById('app');
-    // Obtenemos los sistemas únicos de nuestro inventario
-    const sistemas = [...new Set(inventario.map(p => p.sistema))];
-    
-    app.innerHTML = `
-        <h1>Sistemas de Implantes</h1>
-        <p>Elegí el sistema que buscás:</p>
-        <div id="contenedor-sistemas">
-            ${sistemas.map(sis => `
-                <button class="btn-opcion" onclick="filtrarProductos('${sis}')">${sis}</button>
-            `).join('')}
-        </div>
-        <button class="btn-ingresar" style="background:#666;" onclick="mostrarCategorias()">⬅ VOLVER</button>
-    `;
-}
-
-// Iniciar la app
-mostrarInicio();
+        <button class="btn-opcion" onclick="alert('Próximamente')">🏗️ COMPONENTES</button>
+        <button onclick="mostrarInicio()" style="color:red; background
