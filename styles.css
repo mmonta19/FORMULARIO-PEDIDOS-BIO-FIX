@@ -17,10 +17,8 @@ body {
     width: 100%;
     max-width: 500px;
     min-height: 100vh;
-    background: var(--gris-fondo);
 }
 
-/* Encabezado */
 .header-biofix {
     background-color: var(--azul-oscuro);
     color: white;
@@ -33,7 +31,6 @@ body {
 .header-biofix h1 { font-size: 32px; font-style: italic; font-weight: 800; margin: 0; }
 .header-biofix p { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.8; }
 
-/* Navegación Flotante */
 .nav-container {
     background: white;
     margin: -30px 20px 20px 20px;
@@ -54,7 +51,6 @@ body {
     font-weight: bold;
 }
 
-/* Tarjetas y Botones */
 .card-login {
     background: white;
     margin: 20px;
@@ -83,16 +79,17 @@ body {
     border-radius: 15px;
     padding: 15px;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    font-size: 14px;
+    text-align: center;
 }
 
 /* Colores de Sistemas */
-.color-mp { color: #00BFFF; }    /* Celeste */
-.color-cmu { color: #FF00FF; }   /* Fucsia */
-.color-he { color: #28a745; }    /* Verde */
-.color-hi { color: #FF0000; }    /* Rojo */
-.color-basal { color: #808080; } /* Gris */
-.color-cmhi { color: #8A2BE2; }  /* Violeta */
+.color-mp { color: #00BFFF; }
+.color-cmu { color: #FF00FF; }
+.color-he { color: #28a745; }
+.color-hi { color: #FF0000; }
+.color-basal { color: #808080; }
+.color-cmhi { color: #8A2BE2; }
 
 .sistema-label { font-weight: bold; }
 
@@ -103,4 +100,13 @@ input {
     margin-bottom: 10px;
     border-bottom: 1px solid #eee;
     font-size: 16px;
+}
+
+.btn-cantidad {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: white;
+    font-weight: bold;
 }
